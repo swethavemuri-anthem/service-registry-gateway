@@ -1,0 +1,107 @@
+
+
+<html>
+ 
+<head>
+<title>Login</title>
+ 
+<style>
+    input[type="password"],input[type="text"]{width:100%;}
+    input[type="submit"]:hover {background: #cecece;border-radius: 6px;}
+    body{font-family: sans-serif;}
+    .formHolder{margin-bottom:20px;}
+    .buttonHolder{margin-bottom:20px;text-align:center;}
+    .footer{position: absolute;bottom: 0;right: 0;left:0;min-height: 120px;background-color: #333; color:#fff;font-size:12px;}
+    label {display:block;}
+    .loginBox {position:absolute;top:165px;left:35%;width:250px;padding:40px;border:1px solid #cecece;}
+    .header {height: 95px;left: 0;right: 0;top: 0;background-color: #006bc2;padding-top: .9rem;position: fixed;}
+    .header .logo {display: inline-block;width: 150px;margin-left: 10px;margin-top: 0;vertical-align: top;}
+    .footer ul a {color:#fff;}
+    .footer ul li {display: inline;}
+    .footer ul {list-style-type: none;text-align: center;color:#fff;}
+    .footer ul li:after {content: " | ";}
+    .footer ul li:last-child:after {content: "";}
+    input:-webkit-autofill {-webkit-box-shadow: 0 0 0px 1000px white inset;}
+	:focus{outline: #8FBEE6 solid 2px; }
+  </style>
+</head>
+ 
+<body>
+<div class="header" >
+            <img class=" logo" src="anthem-rev.svg" alt="Anthem">
+</div>
+   <div class="loginBox">
+    <div class="mainContainer">
+        <form id="LoginForm" name="LoginForm" method="post" action="/siteminderagent/forms/login.fcc">
+            <div class="login">
+                <div class="login-header"></div>
+                <div class="login-block">
+                
+                <div class="error" style="display: none" id="errorDiv"><font color=red>Invalid username and/or password. Please try again.</font></div>
+            <input type="hidden" id="TARGET" name="TARGET" value="/ltss/processLogin">
+                    <label>User Name </label>
+            <input type="text" id="USER" name="USER" maxlength="50" placeholder="User Name">
+                <label>Password </label>
+            <input type="password" id="PASSWORD" name="PASSWORD" maxlength="30" placeholder="Password">
+            </div>
+            </div>
+        </form> 
+        <button onclick="submitForm()">Log In</button>
+    </div>
+     
+</div>
+  <div class="footer" id="footer">
+            <ul>
+                        <li>
+                <a href="javascript:void(0)" class="basicView">
+                    Site Map
+                </a>
+        </li>
+                        <li>
+                <a href="javascript:void(0)" class="basicView">
+                    Terms of Use
+                </a>
+        </li>
+                        <li>
+                <a href="javascript:void(0)" class="basicView">
+                    Protected Marks
+                </a>
+        </li>
+                        <li>
+                <a href="javascript:void(0)" class="basicView">
+                    Privacy Policy
+                </a>
+        </li>
+            
+            
+        </ul>
+  </div>
+</body>
+<script type="text/javascript">
+    if(window.location.href.indexOf("sm_error") > -1){
+        var x = document.getElementById("errorDiv");
+        x.style.display = "";
+        if(window.location.href.indexOf("sm_error=2") > -1){
+        		x.innerHTML="<font color=red>The user is currently not set up with the system. Please contact the technical support team.</font>";
+        }
+    }
+
+    function submitForm(){
+        var user = document.getElementById('USER').value;
+        var password = document.getElementById('PASSWORD').value;
+        if(user != null)
+            user = user.trim();
+        if(password != null)
+            password = password.trim();        
+        if(user == null || user== "" || password == null || password== "" ){
+            if(window.location.href.indexOf("sm_error") > -1){
+                window.location.reload()
+            }else{
+                window.location.href=window.location.href+'?sm_error=1';
+            }
+        }else{
+            document.forms["LoginForm"].submit();
+        }
+    }
+</script>
+</html>
